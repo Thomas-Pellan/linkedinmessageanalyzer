@@ -24,9 +24,15 @@
         <httpclient.version>4.5.13</httpclient.version>
         <lang3.version>3.12.0</lang3.version>
         <json.version>20211205</json.version>
+        <scribe.version>8.3.1</scribe.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.scribejava</groupId>
+            <artifactId>scribejava-apis</artifactId>
+            <version>${scribe.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
