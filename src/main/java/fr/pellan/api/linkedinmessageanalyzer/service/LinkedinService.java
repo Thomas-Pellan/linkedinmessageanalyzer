@@ -1,8 +1,5 @@
 package fr.pellan.api.linkedinmessageanalyzer.service;
 
-import com.github.scribejava.apis.LinkedInApi20;
-import com.github.scribejava.core.builder.ScopeBuilder;
-import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
@@ -51,7 +48,7 @@ public class LinkedinService {
 
         final OAuthRequest emailRequest = new OAuthRequest(Verb.GET, PROTECTED_EMAIL_RESOURCE_URL);
         emailRequest.addHeader("x-li-format", "json");
-        emailRequest.addHeader("Accept-Language", "ru-RU");
+        emailRequest.addHeader("Accept-Language", "fr-FR");
         linkedinService.signRequest(accessToken, emailRequest);
 
         String emailResp = null;
