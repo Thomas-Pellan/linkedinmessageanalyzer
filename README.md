@@ -10,5 +10,6 @@
 ### Features - Versions
 
 - 0.0.1 : Spring/Maven project setup
+- 0.0.2 : adding linkedin OAuth2 and few queries on linkedin profile data
 
 
