@@ -22,12 +22,12 @@ public class LinkedinAppAuthService {
     private static final String CREDENTIALS_DATA_SPLITTER = ":";
     private static final String AUTH_FILE_PATH = "auth/credentials.txt";
 
-    public void buildAuthService(){
+    public void buildAuthService(String callback){
 
         OAuth20Service linkedinAuthService = new ServiceBuilder(getAppClientId())
                 .apiSecret(getAppClientSecret())
                 .defaultScope(new ScopeBuilder("r_liteprofile", "r_emailaddress"))
-                .callback("http://localhost:8080/linkedin-connect/execute")
+                .callback(callback)
                 .build(LinkedInApi20.instance());
 
         LinkedinAuth.getInstance(linkedinAuthService);

@@ -24,21 +24,39 @@ public class LinkedinService {
     private static final String PROTECTED_EMAIL_RESOURCE_URL
             = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))";
 
-    public String getLinkedinConnectUrl(){
+    private static final String PROTECTED_PROFILE_RESOURCE_URL
+            = "https://api.linkedin.com/v2/me";
 
-        linkedinAppAuthService.buildAuthService();
+    private static final String MESSAGES_RESSOURCES_URL = "https://www.linkedin.com/messaging";
+
+    public String getLinkedinConnectUrl(String callback){
+
+        linkedinAppAuthService.buildAuthService(callback);
         OAuth20Service linkedinService = LinkedinAuth.getInstance().getAuthService();
 
         final String secretState = "secret" + new Random().nextInt(999_999);
         return linkedinService.getAuthorizationUrl(secretState);
     }
 
+    public String getUserProfile(String authCode){
+
+        return executeLinkedinApiCall(authCode, PROTECTED_PROFILE_RESOURCE_URL);
+    }
+
+    public String getUserMessages(String authCode){
+
+        return executeLinkedinApiCall(authCode, MESSAGES_RESSOURCES_URL);
+    }
+
     public String getUserEmail(String authCode) {
+
+        return executeLinkedinApiCall(authCode, PROTECTED_EMAIL_RESOURCE_URL);
+    }
+
+    private String executeLinkedinApiCall(String authCode, String url){
 
         OAuth2AccessToken accessToken = null;
         OAuth20Service linkedinService = LinkedinAuth.getInstance().getAuthService();
-
-        log.info(authCode);
 
         try {
             accessToken = linkedinService.getAccessToken(authCode);
@@ -46,19 +64,17 @@ public class LinkedinService {
             log.error(e. getMessage());
         }
 
-        final OAuthRequest emailRequest = new OAuthRequest(Verb.GET, PROTECTED_EMAIL_RESOURCE_URL);
-        emailRequest.addHeader("x-li-format", "json");
-        emailRequest.addHeader("Accept-Language", "fr-FR");
-        linkedinService.signRequest(accessToken, emailRequest);
+        final OAuthRequest request = new OAuthRequest(Verb.GET, url);
+        request.addHeader("x-li-format", "json");
+        request.addHeader("Accept-Language", "fr-FR");
+        linkedinService.signRequest(accessToken, request);
 
-        String emailResp = null;
-
-        try(Response emailResponse = linkedinService.execute(emailRequest)) {
-            emailResp = emailResponse.getBody();
+        try(Response response = linkedinService.execute(request)) {
+            return response.getBody();
         } catch (IOException | ExecutionException | InterruptedException e) {
             log.error(e. getMessage());
         }
 
-        return emailResp;
+        return null;
     }
 }
