@@ -10,19 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
 @RequestMapping("linkedin-connect")
 public class LinkedinConnectorController {
 
-@Autowired
-private LinkedinService linkedinService;
+    @Autowired
+    private LinkedinService linkedinService;
 
     @GetMapping(value = "/init")
-    public ResponseEntity<String> getLinkedinConnectUrl(@RequestParam(name="callback") String callback) {
+    public ModelAndView getLinkedinConnectUrl(@RequestParam(name="callback") String callback) {
 
-        return new ResponseEntity(linkedinService.getLinkedinConnectUrl(callback), HttpStatus.OK);
+        return new ModelAndView("redirect:" + linkedinService.getLinkedinConnectUrl(callback));
     }
 
     @GetMapping(value = "/profile", produces = MediaType.APPLICATION_JSON_VALUE)
