@@ -10,6 +10,7 @@ import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import fr.pellan.api.linkedinmessageanalyzer.auth.LinkedinAuth;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,26 +21,15 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class LinkedinService {
 
-    private static final String clientId = "X";
+    @Autowired
+    private LinkedinAppAuthService linkedinAppAuthService;
 
-    private static final String clientSecret = "X";
     private static final String PROTECTED_EMAIL_RESOURCE_URL
             = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))";
 
-    private void buildAuthService(){
-
-        OAuth20Service linkedinAuthService = new ServiceBuilder(clientId)
-                .apiSecret(clientSecret)
-                .defaultScope(new ScopeBuilder("r_liteprofile", "r_emailaddress"))
-                .callback("http://localhost:8080/linkedin-connect/execute")
-                .build(LinkedInApi20.instance());
-
-        LinkedinAuth.getInstance(linkedinAuthService);
-    }
-
     public String getLinkedinConnectUrl(){
 
-        buildAuthService();
+        linkedinAppAuthService.buildAuthService();
         OAuth20Service linkedinService = LinkedinAuth.getInstance().getAuthService();
 
         final String secretState = "secret" + new Random().nextInt(999_999);

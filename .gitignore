@@ -34,3 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Linkedin app credentials ###
+/src/main/resources/auth/*
