@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "c5faad3e-5db7-48ab-9ebd-913be290df59",
+		"name": "LinkedinMessageAnalyer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "parse messages",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/thomas/IdeaProjects/Basic_LinkedInDataExport_07-22-2022/messages.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/linkedin-content-parser/messages",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"linkedin-content-parser",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
