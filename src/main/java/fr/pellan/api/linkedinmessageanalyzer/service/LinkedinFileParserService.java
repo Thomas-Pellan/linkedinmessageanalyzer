@@ -42,6 +42,9 @@ public class LinkedinFileParserService {
     private CsvParserUtil csvParserUtil;
 
     @Autowired
+    private DateFormatUtil dateFormatUtil;
+
+    @Autowired
     private LinkedinFileImportEventPublisher linkedinFileImportEventPublisher;
 
     public boolean publishFileParsingEvent(MultipartFile file, ImportType type){
@@ -95,7 +98,12 @@ public class LinkedinFileParserService {
 
         List<MessageEntity> messagesToPersist = new ArrayList<>();
         messages.forEach(m -> {
-            MessageEntity msg = messageEntityFactory.createOrMergeEntity(m, null);
+            MessageEntity existingMsg = conversation.getMessages()
+                    .stream()
+                    .filter(msg -> msg.getDate() != null && msg.getDate().compareTo(dateFormatUtil.getDateFromLinkedinString(m.getDate())) == 0)
+                    .findFirst().orElse(null);
+
+            MessageEntity msg = messageEntityFactory.createOrMergeEntity(m, existingMsg);
             messagesToPersist.add(msg);
         });
 
