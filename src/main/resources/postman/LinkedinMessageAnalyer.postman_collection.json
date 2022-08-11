@@ -33,6 +33,155 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "parse invitations",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/thomas/IdeaProjects/Basic_LinkedInDataExport_07-22-2022/Invitations.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/linkedin-content-parser/invitations",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"linkedin-content-parser",
+						"invitations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic get linkedin conversations info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9200/linkedin-message",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"linkedin-message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic get all linkedin conversations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9200/linkedin-conversation/_search?pretty=true&q=*:*",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"linkedin-conversation",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "pretty",
+							"value": "true"
+						},
+						{
+							"key": "q",
+							"value": "*:*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic get all linkedin messages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9200/linkedin-message/_search",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"linkedin-message",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get messages between dates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/messages/dates?end=2022-08-11T16:23:09.219&start=2018-08-11T16:23:09.219",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"messages",
+						"dates"
+					],
+					"query": [
+						{
+							"key": "end",
+							"value": "2022-08-11T16:23:09.219"
+						},
+						{
+							"key": "start",
+							"value": "2018-08-11T16:23:09.219"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get convs by title like",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/conversations/title?query=thomas",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"conversations",
+						"title"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "thomas"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
