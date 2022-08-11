@@ -125,6 +125,7 @@ public class LinkedinFileParserService {
         List<MessageEntity> messagesToPersist = updateMessagesInfo(conversation, messages);
 
         conversation.setLastMessage(Collections.max(messagesToPersist, Comparator.comparing(MessageEntity::getDate)).getDate());
+        conversation.setStarted(Collections.min(messagesToPersist, Comparator.comparing(MessageEntity::getDate)).getDate());
         conversation.setMessages(messagesToPersist);
 
         conversationRepository.save(conversation);

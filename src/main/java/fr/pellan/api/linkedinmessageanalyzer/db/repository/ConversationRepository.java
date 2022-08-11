@@ -9,5 +9,5 @@ public interface ConversationRepository extends ElasticsearchRepository<Conversa
 
     List<ConversationEntity> findByLinkedinId(String linkedinId);
 
-    List<ConversationEntity> findByTitle(String title);
+    List<ConversationEntity> findByTitleLike(String title);
 }
