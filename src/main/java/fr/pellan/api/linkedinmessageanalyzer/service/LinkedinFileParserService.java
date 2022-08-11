@@ -22,9 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -37,18 +35,11 @@ public class LinkedinFileParserService {
     @Autowired
     private MessageEntityFactory messageEntityFactory;
 
-
-    @Autowired
-    private MessageRepository messageRepository;
-
     @Autowired
     private ConversationRepository conversationRepository;
 
     @Autowired
     private CsvParserUtil csvParserUtil;
-
-    @Autowired
-    private DateFormatUtil dateFormatUtil;
 
     @Autowired
     private LinkedinFileImportEventPublisher linkedinFileImportEventPublisher;
@@ -102,30 +93,16 @@ public class LinkedinFileParserService {
         ConversationEntity conversation = conversationEntityFactory.createOrMergeEntity(messages.get(0),
                 conversationRepository.findByLinkedinId(conversationId).stream().findFirst().orElse(null));
 
-        ConversationEntity persistedConv = conversationRepository.save(conversation);
-
-        if(persistedConv == null){
-            log.error("indexConversationMessages : error during conversation persistence (conv id {}), will not save the related messages", conversationId);
-            return;
-        }
-
         List<MessageEntity> messagesToPersist = new ArrayList<>();
-
         messages.forEach(m -> {
-            List<MessageEntity> msgs = messageRepository.findByDateAndConversation(dateFormatUtil.getDateFromLinkedinString(m.getDate()), persistedConv);
-            MessageEntity existingMsg = null;
-            if(!CollectionUtils.isEmpty(msgs)){
-                existingMsg = msgs.get(0);
-            }
-
-            MessageEntity msg = messageEntityFactory.createOrMergeEntity(m, existingMsg);
+            MessageEntity msg = messageEntityFactory.createOrMergeEntity(m, null);
             messagesToPersist.add(msg);
         });
 
-        if(CollectionUtils.isEmpty(messagesToPersist)){
-            return;
-        }
-        messageRepository.saveAll(messagesToPersist);
+        conversation.setLastMessage(Collections.max(messagesToPersist, Comparator.comparing(MessageEntity::getDate)).getDate());
+        conversation.setMessages(messagesToPersist);
+
+        conversationRepository.save(conversation);
     }
 
     private void importInvitations(MultipartFile file){

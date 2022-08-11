@@ -14,9 +14,6 @@ public class MessageEntity {
     @Id
     private String id;
 
-    @Field(type = FieldType.Nested)
-    private ConversationEntity conversation;
-
     @Field(type = FieldType.Date)
     private LocalDateTime date;
 

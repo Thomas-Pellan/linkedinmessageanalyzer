@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Document(indexName="linkedin-conversation")
@@ -38,4 +39,7 @@ public class ConversationEntity {
 
     @Field(type = FieldType.Boolean)
     private boolean initiatedByYou;
+
+    @Field( type = FieldType.Nested)
+    private List<MessageEntity> messages;
 }
