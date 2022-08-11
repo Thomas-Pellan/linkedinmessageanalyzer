@@ -22,9 +22,7 @@ public class ConversationEntityFactory {
 
         newConv.setLinkedinId(message.getConversationId());
         newConv.setTitle(message.getConversationTitle());
-        newConv.setFrom(message.getFrom());
         newConv.setSubject(message.getSubject());
-        newConv.setTo(message.getTo());
 
         return newConv;
     }

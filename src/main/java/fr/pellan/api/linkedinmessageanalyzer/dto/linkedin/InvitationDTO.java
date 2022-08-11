@@ -12,7 +12,7 @@ public class InvitationDTO {
     @CsvBindByName(column = "to")
     private String to;
 
-    @CsvBindByName(column = "Send at")
+    @CsvBindByName(column = "Sent At")
     private String sendAt;
 
     @CsvBindByName(column = "Message")

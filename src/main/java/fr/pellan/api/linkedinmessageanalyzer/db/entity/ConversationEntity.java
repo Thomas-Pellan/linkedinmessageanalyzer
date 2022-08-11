@@ -22,11 +22,11 @@ public class ConversationEntity {
     @Field(type = FieldType.Text)
     private String title;
 
-    @Field(type = FieldType.Text)
-    private String from;
+    @Field(type = FieldType.Nested)
+    private PersonEntity from;
 
-    @Field(type = FieldType.Text)
-    private String to;
+    @Field(type = FieldType.Nested)
+    private PersonEntity to;
 
     @Field(type = FieldType.Date)
     private LocalDateTime started;
@@ -36,9 +36,6 @@ public class ConversationEntity {
 
     @Field(type = FieldType.Text)
     private String subject;
-
-    @Field(type = FieldType.Boolean)
-    private boolean initiatedByYou;
 
     @Field( type = FieldType.Nested)
     private List<MessageEntity> messages;

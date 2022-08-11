@@ -7,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 @Slf4j
@@ -31,7 +29,7 @@ public class MessageEntityFactory {
 
         newMsg.setContent(dto.getContent());
         try {
-            newMsg.setDate(dateFormatUtil.getDateFromLinkedinString(dto.getDate()));
+            newMsg.setDate(dateFormatUtil.getDateFromLinkedinMessage(dto.getDate()));
         } catch (DateTimeParseException e) {
             log.error("createOrMergeEntity : invalid date detected on conversation id {}", dto.getConversationId(),e);
         }
