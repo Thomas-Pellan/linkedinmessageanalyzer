@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Data
-@Document(indexName="linkedin")
+@Document(indexName="linkedin-person")
 public class PersonEntity {
 
     @Id

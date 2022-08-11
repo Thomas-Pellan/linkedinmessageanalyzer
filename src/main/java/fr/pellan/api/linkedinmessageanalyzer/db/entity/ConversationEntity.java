@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.time.LocalDateTime;
 
 @Data
-@Document(indexName="linkedin")
+@Document(indexName="linkedin-conversation")
 public class ConversationEntity {
 
     @Id
@@ -18,11 +18,23 @@ public class ConversationEntity {
     @Field(type = FieldType.Text)
     private String linkedinId;
 
+    @Field(type = FieldType.Text)
+    private String title;
+
+    @Field(type = FieldType.Text)
+    private String from;
+
+    @Field(type = FieldType.Text)
+    private String to;
+
     @Field(type = FieldType.Date)
     private LocalDateTime started;
 
     @Field(type = FieldType.Date)
     private LocalDateTime lastMessage;
+
+    @Field(type = FieldType.Text)
+    private String subject;
 
     @Field(type = FieldType.Boolean)
     private boolean initiatedByYou;
