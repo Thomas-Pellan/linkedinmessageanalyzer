@@ -1,7 +1,6 @@
 package fr.pellan.api.linkedinmessageanalyzer.controller;
 
 import fr.pellan.api.linkedinmessageanalyzer.db.entity.ConversationEntity;
-import fr.pellan.api.linkedinmessageanalyzer.enumeration.MessageDirection;
 import fr.pellan.api.linkedinmessageanalyzer.service.ConversationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
