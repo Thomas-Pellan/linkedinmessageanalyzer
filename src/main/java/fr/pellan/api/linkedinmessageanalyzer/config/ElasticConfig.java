@@ -14,6 +14,7 @@ public class ElasticConfig extends AbstractElasticsearchConfiguration {
 
     @Override
     @Bean
+    // FIXME: 14/08/2022 replace high level client with low lever java client when available
     public RestHighLevelClient elasticsearchClient() {
 
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()

@@ -19,7 +19,7 @@ public class LinkedinFileImportEvent extends ApplicationEvent {
     /**
      * The file info used for import.
      */
-    private MultipartFile file;
+    private transient MultipartFile file;
 
     /***
      * Constructor for the event.

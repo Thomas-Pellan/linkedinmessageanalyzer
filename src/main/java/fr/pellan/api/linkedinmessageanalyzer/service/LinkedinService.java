@@ -6,6 +6,7 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import fr.pellan.api.linkedinmessageanalyzer.auth.LinkedinAuth;
+import fr.pellan.api.linkedinmessageanalyzer.exception.LinkedinConnectorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class LinkedinService {
             RANDOM = SecureRandom.getInstanceStrong();
         } catch (NoSuchAlgorithmException e) {
             log.error("LinkedinService : error during service secret creation");
-            throw new RuntimeException(e);
+            throw new LinkedinConnectorException(e.getMessage());
         }
     }
 

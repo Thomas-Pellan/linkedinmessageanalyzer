@@ -87,7 +87,8 @@ public class LinkedinFileParserService {
 
         switch (event.getType()){
             case MESSAGES -> importMessages(event.getFile());
-            default ->importInvitations(event.getFile());
+            case INVITATIONS -> importInvitations(event.getFile());
+            default -> log.warn("Invalid import given");
         }
     }
 
