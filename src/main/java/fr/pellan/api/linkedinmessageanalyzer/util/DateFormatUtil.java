@@ -15,7 +15,7 @@ public class DateFormatUtil {
 
     private static final DateTimeFormatter DATE_FORMATTER_MESSAGE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private static final DateTimeFormatter DATE_FORMATTER_INVITATION = DateTimeFormatter.ofPattern("M/d/yy, h:mm a").localizedBy(Locale.US);;
+    private static final DateTimeFormatter DATE_FORMATTER_INVITATION = DateTimeFormatter.ofPattern("M/d/yy, h:mm a").localizedBy(Locale.US);
 
     private static final String SUFFIX = "UTC";
 
@@ -36,7 +36,7 @@ public class DateFormatUtil {
         }
 
         try {
-            return LocalDateTime.parse(dateTime.replaceAll(SUFFIX, "").trim(), formatter);
+            return LocalDateTime.parse(dateTime.replace(SUFFIX, "").trim(), formatter);
         } catch (DateTimeParseException e) {
             log.error("parseDate : invalid date detected {}", dateTime, e);
         }

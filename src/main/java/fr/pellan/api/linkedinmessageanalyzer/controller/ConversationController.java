@@ -25,6 +25,6 @@ public class ConversationController {
     public ResponseEntity<List<ConversationEntity>> getConversationsByTitle(@RequestParam(value = "query")
                                                                  String query){
 
-        return new ResponseEntity(conversationService.findByTitle(query), HttpStatus.OK);
+        return new ResponseEntity<>(conversationService.findByTitle(query), HttpStatus.OK);
     }
 }

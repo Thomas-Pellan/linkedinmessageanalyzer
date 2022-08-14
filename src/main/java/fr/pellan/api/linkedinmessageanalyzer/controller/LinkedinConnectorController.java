@@ -29,18 +29,18 @@ public class LinkedinConnectorController {
     @GetMapping(value = "/profile", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getLinkedinUserProfile(@RequestParam(name="code") String code){
 
-        return new ResponseEntity(linkedinService.getUserProfile(code), HttpStatus.OK);
+        return new ResponseEntity<>(linkedinService.getUserProfile(code), HttpStatus.OK);
     }
 
     @GetMapping(value = "/mail", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getLinkedinUserEmail(@RequestParam(name="code") String code){
 
-        return new ResponseEntity(linkedinService.getUserEmail(code), HttpStatus.OK);
+        return new ResponseEntity<>(linkedinService.getUserEmail(code), HttpStatus.OK);
     }
 
     @GetMapping(value = "/messages")
     public ResponseEntity<String> executeLinkedinCommand(@RequestParam(name="code") String code){
 
-        return new ResponseEntity(linkedinService.getUserMessages(code), HttpStatus.OK);
+        return new ResponseEntity<>(linkedinService.getUserMessages(code), HttpStatus.OK);
     }
 }

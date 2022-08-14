@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
 @SpringBootTest
-public class DateFormatUtilTest {
+class DateFormatUtilTest {
 
     @Autowired
     DateFormatUtil util;
@@ -15,6 +15,7 @@ public class DateFormatUtilTest {
     void formatter_test_messages() {
 
         String str = "2022-07-18 13:02:02 UTC";
+
         Assert.notNull(util.getDateFromLinkedinMessage(str), "Date should be parsed");
 
         str = "2022-07-18 13:02:04";

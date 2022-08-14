@@ -24,39 +24,39 @@ public class LinkedinMessageFileParserController {
     private static final String ACCEPTED_FILE_EXTENSION = "csv";
 
     @PostMapping(value = "/messages")
-    public ResponseEntity extractLinkedinMessagesData(@RequestBody MultipartFile file) {
+    public ResponseEntity<HttpStatus> extractLinkedinMessagesData(@RequestBody MultipartFile file) {
 
-        ResponseEntity checkResponse = validateQuery(file);
+        ResponseEntity<HttpStatus> checkResponse = validateQuery(file);
         if(checkResponse != null){
             return checkResponse;
         }
 
         HttpStatus responseStatus = linkedinFileParserService.publishFileParsingEvent(file, ImportType.MESSAGES) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
 
-        return new ResponseEntity(responseStatus);
+        return new ResponseEntity<>(responseStatus);
     }
 
     @PostMapping(value = "/invitations")
-    public ResponseEntity extractLinkedinInvitationsData(@RequestBody MultipartFile file) {
+    public ResponseEntity<HttpStatus> extractLinkedinInvitationsData(@RequestBody MultipartFile file) {
 
-        ResponseEntity checkResponse = validateQuery(file);
+        ResponseEntity<HttpStatus> checkResponse = validateQuery(file);
         if(checkResponse != null){
             return checkResponse;
         }
 
         HttpStatus responseStatus = linkedinFileParserService.publishFileParsingEvent(file, ImportType.INVITATIONS) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
 
-        return new ResponseEntity(responseStatus);
+        return new ResponseEntity<>(responseStatus);
     }
 
-    private ResponseEntity validateQuery(MultipartFile file){
+    private ResponseEntity<HttpStatus> validateQuery(MultipartFile file){
 
         if(file == null || file.isEmpty()){
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         if(!ACCEPTED_FILE_EXTENSION.equals(FilenameUtils.getExtension(file.getOriginalFilename()))){
-            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
         return null;

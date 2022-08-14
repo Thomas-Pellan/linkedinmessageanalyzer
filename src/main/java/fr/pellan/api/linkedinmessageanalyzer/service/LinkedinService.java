@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
@@ -29,12 +31,24 @@ public class LinkedinService {
 
     private static final String MESSAGES_RESSOURCES_URL = "https://www.linkedin.com/messaging";
 
+    private static final Random RANDOM;
+
+    static {
+        try {
+            RANDOM = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            log.error("LinkedinService : error during service secret creation");
+            throw new RuntimeException(e);
+        }
+    }
+
     public String getLinkedinConnectUrl(String callback){
 
         linkedinAppAuthService.buildAuthService(callback);
         OAuth20Service linkedinService = LinkedinAuth.getInstance().getAuthService();
 
-        final String secretState = "secret" + new Random().nextInt(999_999);
+        String secretState = "secret" + RANDOM.nextInt(999_999);
+
         return linkedinService.getAuthorizationUrl(secretState);
     }
 
@@ -60,8 +74,11 @@ public class LinkedinService {
 
         try {
             accessToken = linkedinService.getAccessToken(authCode);
-        } catch (IOException | ExecutionException | InterruptedException e) {
+        } catch (IOException | ExecutionException e) {
             log.error(e. getMessage());
+        } catch (InterruptedException e){
+            log.error(e. getMessage());
+            Thread.currentThread().interrupt();
         }
 
         final OAuthRequest request = new OAuthRequest(Verb.GET, url);
@@ -71,8 +88,11 @@ public class LinkedinService {
 
         try(Response response = linkedinService.execute(request)) {
             return response.getBody();
-        } catch (IOException | ExecutionException | InterruptedException e) {
+        } catch (IOException | ExecutionException e) {
             log.error(e. getMessage());
+        } catch (InterruptedException e){
+            log.error(e. getMessage());
+            Thread.currentThread().interrupt();
         }
 
         return null;

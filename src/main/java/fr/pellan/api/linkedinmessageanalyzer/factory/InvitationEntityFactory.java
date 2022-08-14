@@ -1,9 +1,7 @@
 package fr.pellan.api.linkedinmessageanalyzer.factory;
 
 import fr.pellan.api.linkedinmessageanalyzer.db.entity.InvitationEntity;
-import fr.pellan.api.linkedinmessageanalyzer.db.entity.PersonEntity;
 import fr.pellan.api.linkedinmessageanalyzer.dto.linkedin.InvitationDTO;
-import fr.pellan.api.linkedinmessageanalyzer.dto.linkedin.MessageDTO;
 import fr.pellan.api.linkedinmessageanalyzer.enumeration.MessageDirection;
 import fr.pellan.api.linkedinmessageanalyzer.util.DateFormatUtil;
 import lombok.extern.slf4j.Slf4j;

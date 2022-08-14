@@ -103,9 +103,9 @@ public class LinkedinFileParserService {
         messages.removeIf(m -> StringUtils.isBlank(m.getContent()));
 
         //Group messages by conversations
-        Map<String, List<MessageDTO>> dtos = messages.stream().collect(Collectors.groupingBy(m -> m.getConversationId()));
+        Map<String, List<MessageDTO>> dtos = messages.stream().collect(Collectors.groupingBy(MessageDTO::getConversationId));
 
-        dtos.forEach((id, msgList) -> indexConversationMessages(id, msgList));
+        dtos.forEach(this::indexConversationMessages);
     }
 
     private void indexConversationMessages(String conversationId, List<MessageDTO> messages) {
@@ -207,7 +207,7 @@ public class LinkedinFileParserService {
             invitationsToPersist.add(newInv);
         });
 
-        invitationsToPersist.removeIf(i -> i == null);
+        invitationsToPersist.removeIf(Objects::isNull);
 
         invitationRepository.saveAll(invitationsToPersist);
     }

@@ -22,7 +22,7 @@ public class CsvParserUtil {
         List<T> objects;
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 
-            CsvToBean<T> csvToBean = new CsvToBeanBuilder(reader)
+            CsvToBean<T> csvToBean = new CsvToBeanBuilder<T>(reader)
                     .withType(className)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
@@ -31,7 +31,7 @@ public class CsvParserUtil {
 
         } catch (IOException e) {
             log.error("parseCsvFile : error on file {} parsing to class {}", file.getOriginalFilename(), className, e);
-            return new ArrayList();
+            return new ArrayList<>();
         }
         return objects;
     }

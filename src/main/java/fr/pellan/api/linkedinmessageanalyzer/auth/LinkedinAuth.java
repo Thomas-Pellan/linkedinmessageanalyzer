@@ -10,19 +10,19 @@ public class LinkedinAuth {
 
     private OAuth20Service authService;
 
-    private static LinkedinAuth INSTANCE;
+    private static LinkedinAuth instance;
 
     public static LinkedinAuth getInstance(OAuth20Service authService)
     {
-        if (INSTANCE == null)
+        if (instance == null)
         {
-            INSTANCE = new LinkedinAuth(authService);
+            instance = new LinkedinAuth(authService);
         }
-        return INSTANCE;
+        return instance;
     }
 
     public static LinkedinAuth getInstance()
     {
-        return INSTANCE;
+        return instance;
     }
 }
